@@ -2,11 +2,13 @@ package com.example.deepanshu.learnfragments;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by deepanshu on 2/8/17.
  */
 
-public class Course {
+public class Course implements Serializable{
 
     @SerializedName("id")
     private int mId;

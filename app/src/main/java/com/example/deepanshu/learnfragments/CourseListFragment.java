@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,7 +29,11 @@ public class CourseListFragment extends Fragment {
     ListView listView;
     ArrayAdapter<String> mAdapter;
     ArrayList<String> courseTitleArrayList;
+    FragmentItemClickListener mListener;
 
+    void setFragmentItemClickListener(FragmentItemClickListener listener){
+        mListener = listener;
+    }
 
     @Nullable
     @Override
@@ -38,8 +43,16 @@ public class CourseListFragment extends Fragment {
 
         courseArrayList = new ArrayList<>();
         courseTitleArrayList = new ArrayList<>();
-        mAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,courseTitleArrayList);
+        mAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,courseTitleArrayList);
         listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mListener!=null){
+                    mListener.setFragmentItemClickListener(courseArrayList.get(position));
+                }
+            }
+        });
         fetchCourses();
         return v;
     }
@@ -74,5 +87,10 @@ public class CourseListFragment extends Fragment {
             }
         });
 
+
     }
+}
+
+interface FragmentItemClickListener{
+    void setFragmentItemClickListener(Course course);
 }

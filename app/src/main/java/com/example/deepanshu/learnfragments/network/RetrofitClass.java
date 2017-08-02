@@ -12,7 +12,7 @@ public class RetrofitClass {
     public static Retrofit retrofitInstance;
 
     public static Retrofit getRetrofitInstance(){
-        if(retrofitInstance!=null){
+        if(retrofitInstance==null){
             retrofitInstance = new Retrofit.Builder()
                     .baseUrl("https://codingninjas.in/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create()).build();
